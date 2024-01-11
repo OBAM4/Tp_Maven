@@ -1,14 +1,19 @@
 package ma.eheio;
 
+import javax.annotation.processing.SupportedAnnotationTypes;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 public class ProduitService {
 
     public static List<Produit> ListeProducts=new ArrayList<Produit>();//Liste De Products
 
     //Update Is Done
+
     public static void update(Produit pr)
     {
         try {
