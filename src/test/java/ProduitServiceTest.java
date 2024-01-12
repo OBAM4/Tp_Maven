@@ -29,13 +29,13 @@ public class ProduitServiceTest {
     }
 
     @Test
-    public void testAjoutEtRecupererProduit() {
+    public void Test_add() {
         int produitId = 1;
         Produit produit = new Produit((long)produitId, "walid", 500.0, 10);
         this.produitService.add(produit);
     }
     @Test
-    public void testMiseAJourProduit() {
+    public void Test_Update() {
         int produitId = 1;
         Produit produit = new Produit((long)produitId, "walid", 40.0, 8);
         this.produitService.add(produit);
@@ -44,7 +44,7 @@ public class ProduitServiceTest {
     }
 
     @Test
-    public void testSupprimerProduit() {
+    public void Test_Delete() {
         int produitId = 8;
         Produit produit = new Produit((long)produitId, "alo", 2.0, 70);
         this.produitService.add(produit);
@@ -52,7 +52,7 @@ public class ProduitServiceTest {
     }
 
     @Test
-    public void testRecupererTousProduits() {
+    public void Test_ReadAll() {
         Produit produit1 = new Produit(1, "qq", 2, 44);
         Produit produit2 = new Produit(2, "Y", 4, 2);
         this.produitService.add(produit1);
