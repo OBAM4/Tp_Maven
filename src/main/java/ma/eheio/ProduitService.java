@@ -10,117 +10,68 @@ import org.junit.Ignore;
 import org.junit.Test;
 public class ProduitService {
 
-    public static List<Produit> ListeProducts=new ArrayList<Produit>();//Liste De Products
+    public static ArrayList<Produit> ListeProducts=new ArrayList<Produit>();//Liste Des Products
 
     //Update Is Done
 
-    public static void update(Produit pr)
+    public  void update(Produit pr)
     {
-        try {
-            int m = ProduitService.verify(pr.getNom(),pr.getId());
-            if(m==1)
-            {
-                for (int i=0;i<ListeProducts.size();i++)
-                {
-                    Produit p=ListeProducts.get(i);
-                    if(p.getId()==pr.getId())
-                    {
-                        p.setNom(pr.getNom());
-                        p.setPrix(pr.getPrix());
-                        p.setQnt(pr.getQnt());
-                        System.out.println("Bien Modifier");
-                        break;
-                    }
-                }
 
-
-            }else{
-                System.out.println("Non Existe");
+        for(int i = 0; i < ListeProducts.size(); i++) {
+            if(ListeProducts.get(i).getId() == pr.getId()) {
+                ListeProducts.set(i, pr);
+                return;
             }
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
         }
+        throw new IllegalArgumentException("product not exist");
+
     }
 
-
-    //Add Is Done
-    public static void add(Produit pr)
+    public  void add(Produit pr)
     {
-        try {
-            int m = ProduitService.verify(pr.getNom(),pr.getId());
-            if(m==0)
-            {
-                   ListeProducts.add(pr);
-
-                   System.out.println("Bien Ajouter");
-            }else{
-                System.out.println("Deja Existe");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       for(int i= 0 ; i<ListeProducts.size();i++)
+       {
+           if(ListeProducts.get(i).getId() == pr.getId() || ListeProducts.get(i).getNom()==pr.getNom())
+           {
+               throw new IllegalArgumentException("Product alredy exist");
+           }
+       }
+       ListeProducts.add(pr);
     }
 
-    public static void Delete(Produit pr)
+    public  void Delete(long id)
     {
-        try {
-            int m = ProduitService.verify(pr.getNom(),pr.getId());
-            if(m==1)
-            {
-                for (int i=0;i<ListeProducts.size();i++)
-                {
-                    Produit p=ListeProducts.get(i);
-                    if(p.getId()==pr.getId())
-                    {
-                        ListeProducts.remove(pr);
-                        System.out.println("Bien Supprimer");
-                        break;
-                    }
-                }
-            }else{
-                System.out.println("Non Existe");
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        for(int i = 0; i < ListeProducts.size(); i++) {
+            if(ListeProducts.get(i).getId() == id) {
+                ListeProducts.remove(i);
+                return;
+            }
         }
+        throw new IllegalArgumentException("Le produit recherché n'existe pas");
     }
     //ReadAll Is Done
-    public static void ReadAll()
+    public  void ReadAll()
     {
-        try {
-            for (Produit Pr : ListeProducts) {
-                System.out.println("****************");
-                System.out.println(Pr.getId());
-                System.out.println(Pr.getNom());
-                System.out.println(Pr.getPrix());
-                System.out.println(Pr.getQnt());
-                System.out.println("****************");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        for(int i=0;i<ListeProducts.size();i++)
+        {
+            System.out.println(ListeProducts.get(i));
         }
+
+        System.out.println("============================");
     }
+    public ArrayList<Produit> GetAll(){
+        return ListeProducts;
+    }
+
 
     //Verify Is Done
-    private static int verify(String nm,Long id) throws Exception {
-        int a = 1;
-        for (int i=0;i<ListeProducts.size();i++)
-        {
-            Produit p=ListeProducts.get(i);
-            if(p.getId()!=id)
-            {  if(p.getNom()!=nm)
-                {
-                    a=0;
-                    break;
-                }
-            }
+    private void  verify(Produit pr)
+    {
+        if(pr.getQnt() < 0 || pr.getPrix() < 0) {
+            throw new IllegalArgumentException (
+                    "La quantité et le prix du produit doivent toujours être positifs"
+            );
         }
-        return a;
     }
-
 }

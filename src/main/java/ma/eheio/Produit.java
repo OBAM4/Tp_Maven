@@ -10,6 +10,17 @@ public class Produit {
 
     private int Qnt;
 
+    public Produit(long id , String nom , double prix, int i)
+    {
+        this.Id=id;
+        this.Nom=nom;
+        this.Prix=prix;
+        this.Qnt=Qnt;
+
+    }
+
+
+
     public Double getPrix() {
         return Prix;
     }
